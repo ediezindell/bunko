@@ -1,5 +1,6 @@
 import { Item } from '@/types/RakutenBooksSearchApiParams';
 import Image from 'next/image';
+import { getSizeLabel } from "@/lib/getSize"
 
 type Props = {
   book: Item;
@@ -18,8 +19,9 @@ const BookCard = async ({ book }: Props) => {
       <div className="flex flex-col flex-grow p-4">
         <h2 className="text-xl font-semibold mb-2">{book.title}</h2>
         <p className="text-gray-600 mb-4 flex-grow">{book.author}</p>
+        <p className="text-gray-600 mb-4 flex-grow">{book.publisherName}</p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {['文庫あり', '映画化'].map((tag) => (
+          {[book.size].map((tag) => (
             <span
               key={tag}
               className="px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-sm"

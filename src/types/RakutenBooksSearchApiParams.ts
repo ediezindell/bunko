@@ -2,19 +2,19 @@
 type Format = 'json' | 'xml';
 type FormatVersion = 1 | 2;
 // サイズの型エイリアス
-type Other = 0; // その他
-type Tankobon = 1; // 単行本
-type Shinsho = 2; // 新書
-type Bunko = 3; // 文庫
-type SoftcoverTankobon = 4; // 単行本（ソフトカバー）
-type PictureBook = 5; // 絵本
-type BoxedTankobon = 6; // 単行本（箱入り）
-type CasedTankobon = 7; // 単行本（ケース入り）
-type MusicScore = 8; // 楽譜
-type Card = 9; // カード
-type WithCD = 10; // CDなど付属
+export type Other = 0; // その他
+export type Tankobon = 1; // 単行本
+export type Shinsho = 2; // 新書
+export type Bunko = 3; // 文庫
+export type SoftcoverTankobon = 4; // 単行本（ソフトカバー）
+export type PictureBook = 5; // 絵本
+export type BoxedTankobon = 6; // 単行本（箱入り）
+export type CasedTankobon = 7; // 単行本（ケース入り）
+export type MusicScore = 8; // 楽譜
+export type Card = 9; // カード
+export type WithCD = 10; // CDなど付属
 
-type Size =
+export type Size =
   | Other
   | Tankobon
   | Shinsho
