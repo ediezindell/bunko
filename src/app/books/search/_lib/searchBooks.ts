@@ -1,4 +1,4 @@
-import { Item, RakutenBooksSearchApiParams } from "@/types/RakutenBooksSearchApiParams";
+import { Item, RakutenBooksSearchApiParams, RakutenBooksSearchApiResponse } from "@/types/RakutenBooksSearchApiParams";
 import { getSearchParams } from "./getSearchParams";
 
 export async function searchBooks(
@@ -24,14 +24,12 @@ export async function searchBooks(
     if (!res.ok) {
       throw new Error("fetch failed")
     }
-    const json = await res.json();
-    return json.Items as Item[];
+    return await res.json() as RakutenBooksSearchApiResponse;
   } catch (e: unknown) {
     if (e instanceof Error) {
       console.error(e.message)
     } else {
       console.error(e);
     }
-    return [];
   }
 }

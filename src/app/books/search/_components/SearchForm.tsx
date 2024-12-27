@@ -40,7 +40,7 @@ export function SearchForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex gap-4">
         <FormField
           control={form.control}
           name="searchWord"
@@ -54,7 +54,7 @@ export function SearchForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">検索</Button>
       </form>
     </Form>
   )

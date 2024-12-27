@@ -91,7 +91,7 @@ export interface RakutenBooksSearchApiResponse {
   hits: number;
   carrier: Carrier;
   pageCount: number;
-  items: Item[];
+  Items: Item[];
   genreInformation?: GenreInformation[];
 }
 
