@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,16 +12,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { getSearchParams } from "../_lib/getSearchParams"
-import { useRouter, useSearchParams } from "next/navigation"
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { getSearchParams } from '../_lib/getSearchParams';
 
 const formSchema = z.object({
   searchWord: z.string().min(2, {
-    message: "検索キーワードは2文字以上入力してください",
+    message: '検索キーワードは2文字以上入力してください',
   }),
-})
+});
 
 export function SearchForm() {
   const router = useRouter();
@@ -29,17 +29,20 @@ export function SearchForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      searchWord: searchParams.get("searchWord") ?? "",
+      searchWord: searchParams.get('searchWord') ?? '',
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    router.push(`/books/search?${getSearchParams(values)}`)
+    router.push(`/books/search?${getSearchParams(values)}`);
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex gap-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 flex gap-4"
+      >
         <FormField
           control={form.control}
           name="searchWord"
@@ -56,6 +59,5 @@ export function SearchForm() {
         <Button type="submit">検索</Button>
       </form>
     </Form>
-  )
+  );
 }
-

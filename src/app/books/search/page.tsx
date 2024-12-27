@@ -47,14 +47,20 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
           {page > 1 && (
             <PaginationItem>
               <PaginationPrevious
-                href={`/books/search/?${getSearchParams({ ...searchParams, page: page - 1 }).toString()}`}
+                href={`/books/search/?${getSearchParams({
+                  ...searchParams,
+                  page: page - 1,
+                }).toString()}`}
               />
             </PaginationItem>
           )}
           {page > 2 && (
             <PaginationItem>
               <PaginationLink
-                href={`/books/search/?${getSearchParams({ ...searchParams, page: 1 }).toString()}`}
+                href={`/books/search/?${getSearchParams({
+                  ...searchParams,
+                  page: 1,
+                }).toString()}`}
               >
                 1
               </PaginationLink>
@@ -72,7 +78,10 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
             .map((i) => (
               <PaginationItem key={i}>
                 <PaginationLink
-                  href={`/books/search/?${getSearchParams({ ...searchParams, page: i }).toString()}`}
+                  href={`/books/search/?${getSearchParams({
+                    ...searchParams,
+                    page: i,
+                  }).toString()}`}
                   isActive={i === page}
                 >
                   {i}
@@ -87,7 +96,10 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
           {page + 1 < pageCount && (
             <PaginationItem>
               <PaginationLink
-                href={`/books/search/?${getSearchParams({ ...searchParams, page: pageCount }).toString()}`}
+                href={`/books/search/?${getSearchParams({
+                  ...searchParams,
+                  page: pageCount,
+                }).toString()}`}
               >
                 {pageCount}
               </PaginationLink>
@@ -96,7 +108,10 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
           {page < pageCount && (
             <PaginationItem>
               <PaginationNext
-                href={`/books/search/?${getSearchParams({ ...searchParams, page: page + 1 }).toString()}`}
+                href={`/books/search/?${getSearchParams({
+                  ...searchParams,
+                  page: page + 1,
+                }).toString()}`}
               />
             </PaginationItem>
           )}

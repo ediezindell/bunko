@@ -33,12 +33,7 @@ type OutOfStock = 0; // 在庫なし
 type LimitedStock = 2; // 限定在庫
 type PreOrder = 3; // 予約受付中
 type OutOfPrint = 4; // 絶版
-type Availability =
-  | InStock
-  | OutOfStock
-  | LimitedStock
-  | PreOrder
-  | OutOfPrint;
+type Availability = InStock | OutOfStock | LimitedStock | PreOrder | OutOfPrint;
 type OutOfStockFlag = 0 | 1; // 在庫なしの商品表示フラグ
 type ChirayomiFlag = 0 | 1; // チラよみ対応商品フラグ
 type Sort =
@@ -149,4 +144,3 @@ export interface GenreInformation {
     itemCount?: number;
   }>;
 }
-
