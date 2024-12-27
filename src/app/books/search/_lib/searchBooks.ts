@@ -1,4 +1,4 @@
-import { Item, RakutenBooksSearchApiParams, RakutenBooksSearchApiResponse } from "@/types/RakutenBooksSearchApiParams";
+import { RakutenBooksSearchApiParams, RakutenBooksSearchApiResponse } from "@/types/RakutenBooksSearchApiParams";
 import { getSearchParams } from "./getSearchParams";
 
 export async function searchBooks(
