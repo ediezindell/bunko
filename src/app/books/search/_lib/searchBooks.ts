@@ -3,10 +3,10 @@ import { getSearchParams } from "./getSearchParams";
 
 export async function searchBooks(
   searchWord: string,
-  page?: number,
-  hits?: number
+  page: number,
+  hits: number
 ) {
-  const params: RakutenBooksSearchApiParams = {
+  const params = {
     applicationId: process.env.APPLICATION_ID ?? "",
     formatVersion: 2,
     size: 0,
@@ -15,8 +15,8 @@ export async function searchBooks(
     title: searchWord,
     page,
     hits,
-  }
-  const searchParams = getSearchParams(params as Record<string, number | string>)
+  } satisfies RakutenBooksSearchApiParams;
+  const searchParams = getSearchParams(params)
   const baseUrl = "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404"
   const url = `${baseUrl}?${searchParams.toString()}`
   try {
