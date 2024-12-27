@@ -1,8 +1,10 @@
 import { Item } from "@/types/RakutenBooksSearchApiParams";
 import Image from "next/image";
 
-export const BookCard = async (props: { book: Item; }) => {
-  const { book } = props;
+type Props = {
+  book: Item;
+}
+const BookCard = async ({ book }: Props) => {
   return (
     <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg bg-white">
       <div className="relative h-48 w-full">
@@ -38,3 +40,4 @@ export const BookCard = async (props: { book: Item; }) => {
   );
 };
 
+export default BookCard

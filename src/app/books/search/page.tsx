@@ -8,10 +8,10 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { notFound } from 'next/navigation';
+import BookList from './_components/BookList';
 import { SearchForm } from './_components/SearchForm';
 import { getSearchParams } from './_lib/getSearchParams';
 import { searchBooks } from './_lib/searchBooks';
-import { BookCard } from './BookCard';
 type Props = {
   searchParams: Promise<{
     searchWord?: string;
@@ -41,23 +41,17 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
       <h1>
         [{searchWord}] の検索結果 ({first}-{last}件 / 全{count}件)
       </h1>
-      <ul className="flex flex-wrap gap-4">
-        {books.map((book) => (
-          <li key={book.isbn}>
-            <BookCard book={book} />
-          </li>
-        ))}
-      </ul>
+      <BookList books={books} />
       <Pagination>
         <PaginationContent>
-          {page > 1 &&
+          {page > 1 && (
             <PaginationItem>
               <PaginationPrevious
                 href={`/books/search/?${getSearchParams({ ...searchParams, page: page - 1 }).toString()}`}
               />
             </PaginationItem>
-          }
-          {page > 2 &&
+          )}
+          {page > 2 && (
             <PaginationItem>
               <PaginationLink
                 href={`/books/search/?${getSearchParams({ ...searchParams, page: 1 }).toString()}`}
@@ -65,29 +59,32 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
                 1
               </PaginationLink>
             </PaginationItem>
-          }
-          {page > 3 &&
+          )}
+          {page > 3 && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
-          }
-          {(new Array(3)).fill(undefined).map((_, i) => page + i - 1).filter((i) => 1 <= i && i <= pageCount).map((i) =>
-          (
-            <PaginationItem key={i}>
-              <PaginationLink
-                href={`/books/search/?${getSearchParams({ ...searchParams, page: i }).toString()}`}
-                isActive={i === page}
-              >
-                {i}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          {page + 2 < pageCount &&
+          )}
+          {new Array(3)
+            .fill(undefined)
+            .map((_, i) => page + i - 1)
+            .filter((i) => 1 <= i && i <= pageCount)
+            .map((i) => (
+              <PaginationItem key={i}>
+                <PaginationLink
+                  href={`/books/search/?${getSearchParams({ ...searchParams, page: i }).toString()}`}
+                  isActive={i === page}
+                >
+                  {i}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+          {page + 2 < pageCount && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
-          }
-          {page + 1 < pageCount &&
+          )}
+          {page + 1 < pageCount && (
             <PaginationItem>
               <PaginationLink
                 href={`/books/search/?${getSearchParams({ ...searchParams, page: pageCount }).toString()}`}
@@ -95,14 +92,14 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
                 {pageCount}
               </PaginationLink>
             </PaginationItem>
-          }
-          {page < pageCount &&
+          )}
+          {page < pageCount && (
             <PaginationItem>
               <PaginationNext
                 href={`/books/search/?${getSearchParams({ ...searchParams, page: page + 1 }).toString()}`}
               />
             </PaginationItem>
-          }
+          )}
         </PaginationContent>
       </Pagination>
     </>
