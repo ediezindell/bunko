@@ -2,7 +2,7 @@ import BackButton from "@/components/BackButton";
 
 type Props = {
   params: {
-    bookId: number;
+    bookId: string;
   };
 };
 
