@@ -19,7 +19,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 const formSchema = z.object({
   searchWord: z.string().min(2, {
-    message: "SearchWord must be at least 2 characters.",
+    message: "検索キーワードは2文字以上入力してください",
   }),
 })
 
