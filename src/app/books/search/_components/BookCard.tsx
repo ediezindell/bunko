@@ -38,7 +38,7 @@ const BookCard = async ({ book }: Props) => {
             }).format(book.itemPrice)}
           </span>
           <a
-            href={book.itemUrl}
+            href={book.affiliateUrl || book.itemUrl}
             target="_blank"
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
           >

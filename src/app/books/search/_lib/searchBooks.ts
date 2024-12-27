@@ -11,6 +11,7 @@ export async function searchBooks(
 ) {
   const params = {
     applicationId: process.env.APPLICATION_ID ?? '',
+    affiliateId: process.env.AFFILIATE_ID ?? '',
     formatVersion: 2,
     size: 0,
     sort: '-releaseDate',
