@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getSearchParams } from '../_lib/getSearchParams';
+import { getSearchParams } from '../app/books/search/_lib/getSearchParams';
 
 const formSchema = z.object({
   searchWord: z.string().min(2, {

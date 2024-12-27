@@ -15,9 +15,9 @@ const Header = () => {
           <li>
             <Link href="/">トップ</Link>
           </li>
-          <li>
-            <Link href="/books">ブック</Link>
-          </li>
+          {/* <li> */}
+          {/*   <Link href="/books">ブック</Link> */}
+          {/* </li> */}
         </menu>
       </nav>
     </header>
@@ -25,7 +25,11 @@ const Header = () => {
 };
 
 const Footer = () => {
-  return <footer>footer</footer>;
+  return (
+    <footer>
+      {/* footer */}
+    </footer>
+  );
 };
 
 export default function RootLayout({

@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import {
   Pagination,
   PaginationContent,
@@ -7,9 +8,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { notFound } from 'next/navigation';
+import { SearchForm } from '@/components/SearchForm';
 import BookList from './_components/BookList';
-import { SearchForm } from './_components/SearchForm';
 import { getSearchParams } from './_lib/getSearchParams';
 import { searchBooks } from './_lib/searchBooks';
 type Props = {
