@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { SearchForm } from '@/components/SearchForm';
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { SearchForm } from '@/components/SearchForm';
+import { notFound } from 'next/navigation';
 import BookList from './_components/BookList';
 import { getSearchParams } from './_lib/getSearchParams';
 import { searchBooks } from './_lib/searchBooks';
@@ -41,82 +41,84 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
       <h1>
         [{searchWord}] の検索結果 ({first}-{last}件 / 全{count}件)
       </h1>
-      <BookList books={books} />
-      <Pagination>
-        <PaginationContent>
-          {page > 1 && (
-            <PaginationItem>
-              <PaginationPrevious
-                href={`/books/search/?${getSearchParams({
-                  ...searchParams,
-                  page: page - 1,
-                }).toString()}`}
-              />
-            </PaginationItem>
-          )}
-          {page > 2 && (
-            <PaginationItem>
-              <PaginationLink
-                href={`/books/search/?${getSearchParams({
-                  ...searchParams,
-                  page: 1,
-                }).toString()}`}
-              >
-                1
-              </PaginationLink>
-            </PaginationItem>
-          )}
-          {page > 3 && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-          {new Array(3)
-            .fill(undefined)
-            .map((_, i) => page + i - 1)
-            .filter((i) => 1 <= i && i <= pageCount)
-            .map((i) => (
-              <PaginationItem key={i}>
+      <section className="flex flex-col gap-4">
+        <BookList books={books} />
+        <Pagination>
+          <PaginationContent>
+            {page > 1 && (
+              <PaginationItem>
+                <PaginationPrevious
+                  href={`/books/search/?${getSearchParams({
+                    ...searchParams,
+                    page: page - 1,
+                  }).toString()}`}
+                />
+              </PaginationItem>
+            )}
+            {page > 2 && (
+              <PaginationItem>
                 <PaginationLink
                   href={`/books/search/?${getSearchParams({
                     ...searchParams,
-                    page: i,
+                    page: 1,
                   }).toString()}`}
-                  isActive={i === page}
                 >
-                  {i}
+                  1
                 </PaginationLink>
               </PaginationItem>
-            ))}
-          {page + 2 < pageCount && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-          {page + 1 < pageCount && (
-            <PaginationItem>
-              <PaginationLink
-                href={`/books/search/?${getSearchParams({
-                  ...searchParams,
-                  page: pageCount,
-                }).toString()}`}
-              >
-                {pageCount}
-              </PaginationLink>
-            </PaginationItem>
-          )}
-          {page < pageCount && (
-            <PaginationItem>
-              <PaginationNext
-                href={`/books/search/?${getSearchParams({
-                  ...searchParams,
-                  page: page + 1,
-                }).toString()}`}
-              />
-            </PaginationItem>
-          )}
-        </PaginationContent>
-      </Pagination>
+            )}
+            {page > 3 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            {new Array(3)
+              .fill(undefined)
+              .map((_, i) => page + i - 1)
+              .filter((i) => 1 <= i && i <= pageCount)
+              .map((i) => (
+                <PaginationItem key={i}>
+                  <PaginationLink
+                    href={`/books/search/?${getSearchParams({
+                      ...searchParams,
+                      page: i,
+                    }).toString()}`}
+                    isActive={i === page}
+                  >
+                    {i}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+            {page + 2 < pageCount && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            {page + 1 < pageCount && (
+              <PaginationItem>
+                <PaginationLink
+                  href={`/books/search/?${getSearchParams({
+                    ...searchParams,
+                    page: pageCount,
+                  }).toString()}`}
+                >
+                  {pageCount}
+                </PaginationLink>
+              </PaginationItem>
+            )}
+            {page < pageCount && (
+              <PaginationItem>
+                <PaginationNext
+                  href={`/books/search/?${getSearchParams({
+                    ...searchParams,
+                    page: page + 1,
+                  }).toString()}`}
+                />
+              </PaginationItem>
+            )}
+          </PaginationContent>
+        </Pagination>
+      </section>
     </>
   );
 };
