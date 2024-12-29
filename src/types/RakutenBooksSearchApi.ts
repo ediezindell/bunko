@@ -9,36 +9,47 @@ export const GENRE_SHINSHO = '001020';
 
 /** すべて */
 export const SIZE_ALL = 0;
+/** すべて */
 export type All = typeof SIZE_ALL;
 /** 単行本 */
 export const SIZE_TANKOBON = 1;
+/** 単行本 */
 export type Tankobon = typeof SIZE_TANKOBON;
 /** 文庫 */
 export const SIZE_BUNKO = 2;
+/** 文庫 */
 export type Bunko = typeof SIZE_BUNKO;
 /** 新書 */
 export const SIZE_SHINSHO = 3;
+/** 新書 */
 export type Shinsho = typeof SIZE_SHINSHO;
 /** 全集・双書 */
 export const SIZE_ZENSHU = 4;
+/** 全集・双書 */
 export type Zenshu = typeof SIZE_ZENSHU;
 /** 事・辞典 */
 export const SIZE_JITEN = 5;
+/** 事・辞典 */
 export type Jiten = typeof SIZE_JITEN;
 /** 図鑑 */
 export const SIZE_ZUKAN = 6;
+/** 図鑑 */
 export type Zukan = typeof SIZE_ZUKAN;
 /** 絵本 */
 export const SIZE_EHON = 7;
+/** 絵本 */
 export type Ehon = typeof SIZE_EHON;
 /** カセット,CDなど */
 export const SIZE_CD = 8;
+/** カセット,CDなど */
 export type CD = typeof SIZE_CD;
 /** コミック */
 export const SIZE_COMMIC = 9;
+/** コミック */
 export type Commic = typeof SIZE_COMMIC;
 /** ムックその他 */
 export const SIZE_MOOK = 10;
+/** ムックその他 */
 export type Mook = typeof SIZE_MOOK;
 
 export type SizeKey =
