@@ -17,7 +17,7 @@ const BookCard = async ({ book }: Props) => {
           src={book.largeImageUrl}
           alt={book.title}
           fill
-          className="object-cover"
+          className="object-contain hover:object-scale-down"
         />
       </div>
       <div className="flex flex-col p-4 gap-2 flex-grow">
