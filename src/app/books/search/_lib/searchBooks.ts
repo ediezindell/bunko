@@ -44,10 +44,6 @@ export async function searchBooks(
   }
 }
 
-export async function searchBunko(
-  searchWord: string,
-  page: number,
-  hits: number,
-) {
-  return searchBooks(searchWord, page, hits, SIZE_BUNKO, GENRE_BOOK);
+export async function searchBunko(title: string, page: number, hits: number) {
+  return searchBooks(title, page, hits, SIZE_BUNKO, GENRE_BOOK);
 }
