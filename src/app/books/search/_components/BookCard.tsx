@@ -1,8 +1,8 @@
-import { Item } from '@/types/RakutenBooksSearchApi';
+import { Book } from '@/types/RakutenBooksSearchApi';
 import Image from 'next/image';
 
 type Props = {
-  book: Item;
+  book: Book;
 };
 const BookCard = async ({ book }: Props) => {
   return (

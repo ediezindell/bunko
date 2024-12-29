@@ -1,41 +1,74 @@
-// 型エイリアスの定義
 type Format = 'json' | 'xml';
 type FormatVersion = 1 | 2;
-// サイズの型エイリアス
-export type Other = 0; // その他
-export type Tankobon = 1; // 単行本
-export type Shinsho = 2; // 新書
-export type Bunko = 3; // 文庫
-export type SoftcoverTankobon = 4; // 単行本（ソフトカバー）
-export type PictureBook = 5; // 絵本
-export type BoxedTankobon = 6; // 単行本（箱入り）
-export type CasedTankobon = 7; // 単行本（ケース入り）
-export type MusicScore = 8; // 楽譜
-export type Card = 9; // カード
-export type WithCD = 10; // CDなど付属
 
-export type Size =
-  | Other
+/** すべて */
+export type All = 0;
+/** 単行本 */
+export type Tankobon = 1;
+/** 新書 */
+export type Shinsho = 2;
+/** 文庫 */
+export type Bunko = 3;
+/** 全集・双書 */
+export type Zenshu = 4;
+/** 事・辞典 */
+export type Jiten = 5;
+/** 図鑑 */
+export type Zukan = 6;
+/** 絵本 */
+export type Ehon = 7;
+/** カセット,CDなど */
+export type CD = 8;
+/** コミック */
+export type Commic = 9;
+/** ムックその他 */
+export type Mook = 10;
+
+export type SizeKey =
+  | All
   | Tankobon
   | Shinsho
   | Bunko
-  | SoftcoverTankobon
-  | PictureBook
-  | BoxedTankobon
-  | CasedTankobon
-  | MusicScore
-  | Card
-  | WithCD;
+  | Zenshu
+  | Jiten
+  | Zukan
+  | Ehon
+  | CD
+  | Commic
+  | Mook;
 
-// 在庫状況の型エイリアス
-type InStock = 1; // 在庫あり
-type OutOfStock = 0; // 在庫なし
-type LimitedStock = 2; // 限定在庫
-type PreOrder = 3; // 予約受付中
-type OutOfPrint = 4; // 絶版
+export const sizeMap = {
+  0: '全て',
+  1: '単行本',
+  2: '文庫',
+  3: '新書',
+  4: '全集・双書',
+  5: '事・辞典',
+  6: '図鑑',
+  7: '絵本',
+  8: 'カセット,CDなど',
+  9: 'コミック',
+  10: 'ムックその他',
+} as const;
+
+export type Size = (typeof sizeMap)[SizeKey];
+
+/** 在庫あり */
+type InStock = 1;
+/** 在庫なし */
+type OutOfStock = 0;
+/** 限定在庫 */
+type LimitedStock = 2;
+/** 予約受付中 */
+type PreOrder = 3;
+/** 絶版 */
+type OutOfPrint = 4;
 type Availability = InStock | OutOfStock | LimitedStock | PreOrder | OutOfPrint;
-type OutOfStockFlag = 0 | 1; // 在庫なしの商品表示フラグ
-type ChirayomiFlag = 0 | 1; // チラよみ対応商品フラグ
+
+/** 在庫なしの商品表示フラグ */
+type OutOfStockFlag = 0 | 1;
+/** チラよみ対応商品フラグ */
+type ChirayomiFlag = 0 | 1;
 type Sort =
   | 'standard' // 標準
   | 'sales' // 売上順
@@ -45,11 +78,13 @@ type Sort =
   | '-itemPrice' // 価格の高い順
   | 'reviewCount' // レビュー件数順
   | 'reviewAverage'; // レビュー平均順
-type LimitedFlag = 0 | 1; // 限定フラグ
-type Carrier = 0 | 1; // キャリアフラグ
-type GenreInformationFlag = 0 | 1; // ジャンル情報取得フラグ
+type LimitedFlag = 0 | 1;
+type Carrier = 0 | 1;
+type GenreInformationFlag = 0 | 1;
 
-// 入力パラメーター
+/**
+ * 入力パラメーター
+ */
 export interface RakutenBooksSearchApiParams {
   // 共通パラメーター
   applicationId: string; // 必須
@@ -63,7 +98,7 @@ export interface RakutenBooksSearchApiParams {
   title?: string; // (*1)
   author?: string; // (*1)
   publisherName?: string; // (*1)
-  size?: Size; // (*1)
+  size?: SizeKey; // (*1)
   isbn?: string; // (*1)
   booksGenreId?: string; // (*1)
   hits?: number; // デフォルト: 30 (1〜30)
@@ -77,7 +112,9 @@ export interface RakutenBooksSearchApiParams {
   genreInformationFlag?: GenreInformationFlag; // デフォルト: 0
 }
 
-// 出力パラメーター
+/**
+ * 出力パラメーター
+ */
 export interface RakutenBooksSearchApiResponse {
   count: number;
   page: number;
@@ -86,11 +123,14 @@ export interface RakutenBooksSearchApiResponse {
   hits: number;
   carrier: Carrier;
   pageCount: number;
-  Items: Item[];
-  genreInformation?: GenreInformation[];
+  Items: Book[];
+  genreInformation?: Genre[];
 }
 
-export interface Item {
+/**
+ * 本
+ */
+export interface Book {
   title: string;
   titleKana?: string;
   subTitle?: string;
@@ -124,7 +164,10 @@ export interface Item {
   booksGenreId: string;
 }
 
-export interface GenreInformation {
+/**
+ * ジャンル情報
+ */
+export interface Genre {
   parent?: {
     booksGenreId: string;
     booksGenreName: string;
