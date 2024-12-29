@@ -1,4 +1,4 @@
-import { Item } from '@/types/RakutenBooksSearchApiParams';
+import { Item } from '@/types/RakutenBooksSearchApi';
 import BookCard from './BookCard';
 
 type Props = {

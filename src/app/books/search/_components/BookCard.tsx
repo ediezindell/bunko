@@ -1,6 +1,5 @@
-import { Item } from '@/types/RakutenBooksSearchApiParams';
+import { Item } from '@/types/RakutenBooksSearchApi';
 import Image from 'next/image';
-import { getSizeLabel } from "@/lib/getSize"
 
 type Props = {
   book: Item;

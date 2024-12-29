@@ -1,7 +1,7 @@
 import {
   RakutenBooksSearchApiParams,
   RakutenBooksSearchApiResponse,
-} from '@/types/RakutenBooksSearchApiParams';
+} from '@/types/RakutenBooksSearchApi';
 import { getSearchParams } from './getSearchParams';
 
 export async function searchBooks(
