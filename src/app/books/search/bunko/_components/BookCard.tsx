@@ -1,4 +1,4 @@
-import { Book } from '@/types/RakutenBooksSearchApi';
+import { availabilityMap, Book } from '@/types/RakutenBooksSearchApi';
 import Image from 'next/image';
 
 type Props = {
@@ -22,7 +22,7 @@ const BookCard = async ({ book }: Props) => {
           {book.publisherName} {book.seriesName}
         </p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {[book.size].map((tag) => (
+          {[book.size, availabilityMap[book.availability]].map((tag) => (
             <span
               key={tag}
               className="px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-sm"
