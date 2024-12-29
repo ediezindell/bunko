@@ -1,24 +1,29 @@
 import {
+  GENRE_BOOK,
   RakutenBooksSearchApiParams,
   RakutenBooksSearchApiResponse,
+  SIZE_BUNKO,
+  SizeKey,
 } from '@/types/RakutenBooksSearchApi';
 import { getSearchParams } from './getSearchParams';
 
 export async function searchBooks(
-  searchWord: string,
+  title: string,
   page: number,
   hits: number,
+  size: SizeKey,
+  booksGenreId: string,
 ) {
   const params = {
     applicationId: process.env.APPLICATION_ID ?? '',
     affiliateId: process.env.AFFILIATE_ID ?? '',
     formatVersion: 2,
-    size: 0,
     sort: '-releaseDate',
-    booksGenreId: '001',
-    title: searchWord,
+    booksGenreId,
+    title,
     page,
     hits,
+    size,
   } satisfies RakutenBooksSearchApiParams;
   const searchParams = getSearchParams(params);
   const baseUrl =
@@ -37,4 +42,12 @@ export async function searchBooks(
       console.error(e);
     }
   }
+}
+
+export async function searchBunko(
+  searchWord: string,
+  page: number,
+  hits: number,
+) {
+  return searchBooks(searchWord, page, hits, SIZE_BUNKO, GENRE_BOOK);
 }

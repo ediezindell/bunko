@@ -1,5 +1,6 @@
 import { Book } from '@/types/RakutenBooksSearchApi';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type Props = {
   book: Book;
@@ -18,7 +19,9 @@ const BookCard = async ({ book }: Props) => {
       <div className="flex flex-col flex-grow p-4">
         <h2 className="text-xl font-semibold mb-2">{book.title}</h2>
         <p className="text-gray-600 mb-4 flex-grow">{book.author}</p>
-        <p className="text-gray-600 mb-4 flex-grow">{book.publisherName}</p>
+        <p className="text-gray-600 mb-4 flex-grow">
+          {book.publisherName} {book.seriesName}
+        </p>
         <div className="flex flex-wrap gap-2 mb-4">
           {[book.size].map((tag) => (
             <span
@@ -36,13 +39,9 @@ const BookCard = async ({ book }: Props) => {
               currency: 'JPY',
             }).format(book.itemPrice)}
           </span>
-          <a
-            href={book.affiliateUrl || book.itemUrl}
-            target="_blank"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-          >
-            楽天ブックスで見る
-          </a>
+          <Link href={`/books/search/bunko?searchWord=${book.title}`}>
+            文庫を探す
+          </Link>
         </div>
       </div>
     </div>

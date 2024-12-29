@@ -1,28 +1,45 @@
 type Format = 'json' | 'xml';
 type FormatVersion = 1 | 2;
 
+/** 小説 */
+export const GENRE_BOOK = '001';
+export const GENRE_SHOSETSU = '001004';
+export const GENRE_BUNKO = '001019';
+export const GENRE_SHINSHO = '001020';
+
 /** すべて */
-export type All = 0;
+export const SIZE_ALL = 0;
+export type All = typeof SIZE_ALL;
 /** 単行本 */
-export type Tankobon = 1;
-/** 新書 */
-export type Shinsho = 2;
+export const SIZE_TANKOBON = 1;
+export type Tankobon = typeof SIZE_TANKOBON;
 /** 文庫 */
-export type Bunko = 3;
+export const SIZE_BUNKO = 2;
+export type Bunko = typeof SIZE_BUNKO;
+/** 新書 */
+export const SIZE_SHINSHO = 3;
+export type Shinsho = typeof SIZE_SHINSHO;
 /** 全集・双書 */
-export type Zenshu = 4;
+export const SIZE_ZENSHU = 4;
+export type Zenshu = typeof SIZE_ZENSHU;
 /** 事・辞典 */
-export type Jiten = 5;
+export const SIZE_JITEN = 5;
+export type Jiten = typeof SIZE_JITEN;
 /** 図鑑 */
-export type Zukan = 6;
+export const SIZE_ZUKAN = 6;
+export type Zukan = typeof SIZE_ZUKAN;
 /** 絵本 */
-export type Ehon = 7;
+export const SIZE_EHON = 7;
+export type Ehon = typeof SIZE_EHON;
 /** カセット,CDなど */
-export type CD = 8;
+export const SIZE_CD = 8;
+export type CD = typeof SIZE_CD;
 /** コミック */
-export type Commic = 9;
+export const SIZE_COMMIC = 9;
+export type Commic = typeof SIZE_COMMIC;
 /** ムックその他 */
-export type Mook = 10;
+export const SIZE_MOOK = 10;
+export type Mook = typeof SIZE_MOOK;
 
 export type SizeKey =
   | All
@@ -38,17 +55,17 @@ export type SizeKey =
   | Mook;
 
 export const sizeMap = {
-  0: '全て',
-  1: '単行本',
-  2: '文庫',
-  3: '新書',
-  4: '全集・双書',
-  5: '事・辞典',
-  6: '図鑑',
-  7: '絵本',
-  8: 'カセット,CDなど',
-  9: 'コミック',
-  10: 'ムックその他',
+  [SIZE_ALL]: '全て',
+  [SIZE_TANKOBON]: '単行本',
+  [SIZE_BUNKO]: '文庫',
+  [SIZE_SHINSHO]: '新書',
+  [SIZE_ZENSHU]: '全集・双書',
+  [SIZE_JITEN]: '事・辞典',
+  [SIZE_ZUKAN]: '図鑑',
+  [SIZE_EHON]: '絵本',
+  [SIZE_CD]: 'カセット,CDなど',
+  [SIZE_COMMIC]: 'コミック',
+  [SIZE_MOOK]: 'ムックその他',
 } as const;
 
 export type Size = (typeof sizeMap)[SizeKey];

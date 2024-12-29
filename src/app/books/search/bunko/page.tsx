@@ -8,11 +8,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { GENRE_SHOSETSU, SIZE_TANKOBON } from '@/types/RakutenBooksSearchApi';
 import { notFound } from 'next/navigation';
-import BookList from './_components/BookList';
-import { getSearchParams } from './_lib/getSearchParams';
-import { searchBooks } from './_lib/searchBooks';
+import BookList from '../_components/BookList';
+import { getSearchParams } from '../_lib/getSearchParams';
+import { searchBunko } from '../_lib/searchBooks';
 type Props = {
   searchParams: Promise<{
     searchWord?: string;
@@ -30,13 +29,7 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   const page = +(searchParams.page ?? 1);
   const hits = +(searchParams.hits ?? 30);
 
-  const res = await searchBooks(
-    searchWord,
-    page,
-    hits,
-    SIZE_TANKOBON,
-    GENRE_SHOSETSU,
-  );
+  const res = await searchBunko(searchWord, page, hits);
   if (!res) {
     return <p>エラー</p>;
   }
@@ -46,7 +39,7 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
     <>
       <SearchForm />
       <h1>
-        [{searchWord}] の検索結果 ({first}-{last}件 / 全{count}件)
+        [{searchWord}] の文庫検索結果 ({first}-{last}件 / 全{count}件)
       </h1>
       <section className="flex flex-col gap-4">
         <BookList books={books} />
