@@ -1,8 +1,10 @@
 import {
   GENRE_BOOK,
+  GENRE_SHOSETSU,
   RakutenBooksSearchApiParams,
   RakutenBooksSearchApiResponse,
   SIZE_BUNKO,
+  SIZE_TANKOBON,
   SizeKey,
 } from '@/types/RakutenBooksSearchApi';
 import { getSearchParams } from './getSearchParams';
@@ -37,11 +39,18 @@ export async function searchBooks(
     return (await res.json()) as RakutenBooksSearchApiResponse;
   } catch (e: unknown) {
     if (e instanceof Error) {
-      console.error(e.message);
+      console.error(e.message, title, page, hits, size, booksGenreId);
     } else {
       console.error(e);
     }
   }
+}
+export async function searchTankobon(
+  title: string,
+  page: number,
+  hits: number,
+) {
+  return searchBooks(title, page, hits, SIZE_TANKOBON, GENRE_SHOSETSU);
 }
 
 export async function searchBunko(title: string, page: number, hits: number) {

@@ -8,10 +8,12 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getSearchParams } from '../_lib/getSearchParams';
 import { searchBunko } from '../_lib/searchBooks';
 import BookList from './_components/BookList';
+
 type Props = {
   searchParams: Promise<{
     searchWord?: string;
@@ -19,6 +21,26 @@ type Props = {
     hits?: string;
   }>;
 };
+
+export async function generateMetadata({
+  searchParams: searchParamsPromise,
+}: Props): Promise<Metadata> {
+  const searchParams = await searchParamsPromise;
+  const searchWord = searchParams.searchWord;
+  if (!searchWord) {
+    return {};
+  }
+  const page = +(searchParams.page ?? 1);
+  const hits = +(searchParams.hits ?? 10);
+  const res = await searchBunko(searchWord, page, hits);
+  if (!res) {
+    return {};
+  }
+  const { first, last, count } = res;
+  return {
+    title: `[${searchWord}] の文庫検索結果 (${first}-${last}件 / 全${count}件)`,
+  };
+}
 
 const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   const searchParams = await searchParamsPromise;

@@ -8,11 +8,12 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { GENRE_SHOSETSU, SIZE_TANKOBON } from '@/types/RakutenBooksSearchApi';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BookList from './_components/BookList';
 import { getSearchParams } from './_lib/getSearchParams';
-import { searchBooks } from './_lib/searchBooks';
+import { searchTankobon } from './_lib/searchBooks';
+
 type Props = {
   searchParams: Promise<{
     searchWord?: string;
@@ -20,6 +21,26 @@ type Props = {
     hits?: string;
   }>;
 };
+
+export async function generateMetadata({
+  searchParams: searchParamsPromise,
+}: Props): Promise<Metadata> {
+  const searchParams = await searchParamsPromise;
+  const searchWord = searchParams.searchWord;
+  if (!searchWord) {
+    return {};
+  }
+  const page = +(searchParams.page ?? 1);
+  const hits = +(searchParams.hits ?? 10);
+  const res = await searchTankobon(searchWord, page, hits);
+  if (!res) {
+    return {};
+  }
+  const { first, last, count } = res;
+  return {
+    title: `[${searchWord}] の検索結果 (${first}-${last}件 / 全${count}件)`,
+  };
+}
 
 const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   const searchParams = await searchParamsPromise;
@@ -30,13 +51,7 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   const page = +(searchParams.page ?? 1);
   const hits = +(searchParams.hits ?? 30);
 
-  const res = await searchBooks(
-    searchWord,
-    page,
-    hits,
-    SIZE_TANKOBON,
-    GENRE_SHOSETSU,
-  );
+  const res = await searchTankobon(searchWord, page, hits);
   if (!res) {
     return <p>エラー</p>;
   }
