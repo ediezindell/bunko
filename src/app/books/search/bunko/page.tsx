@@ -9,9 +9,9 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { notFound } from 'next/navigation';
-import BookList from '../_components/BookList';
 import { getSearchParams } from '../_lib/getSearchParams';
 import { searchBunko } from '../_lib/searchBooks';
+import BookList from './_components/BookList';
 type Props = {
   searchParams: Promise<{
     searchWord?: string;
