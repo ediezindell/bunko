@@ -1,13 +1,17 @@
 import { Book } from '@/types/RakutenBooksSearchApi';
 import Image from 'next/image';
 import Link from 'next/link';
+import { searchBunko } from '../_lib/searchBooks';
 
 type Props = {
   book: Book;
 };
 const BookCard = async ({ book }: Props) => {
+  const bunkoRes = await searchBunko(book.title, 1, 30);
+  const hasBunko = bunkoRes?.count ?? 0 > 0;
+
   return (
-    <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg bg-white">
+    <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg bg-white w-80">
       <div className="relative h-48 w-full">
         <Image
           src={book.largeImageUrl}
@@ -16,21 +20,22 @@ const BookCard = async ({ book }: Props) => {
           className="object-cover"
         />
       </div>
-      <div className="flex flex-col flex-grow p-4">
-        <h2 className="text-xl font-semibold mb-2">{book.title}</h2>
-        <p className="text-gray-600 mb-4 flex-grow">{book.author}</p>
-        <p className="text-gray-600 mb-4 flex-grow">
+      <div className="flex flex-col p-4 gap-2 flex-grow">
+        <h2 className="text-xl font-semibold flex-grow">
+          <span>{book.title}</span>
+        </h2>
+        <p className="text-gray-600">{book.author}</p>
+        <p className="text-gray-600">
           {book.publisherName} {book.seriesName}
         </p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {[book.size].map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-sm"
-            >
-              {tag}
+        <div className="flex flex-wrap gap-2">
+          {hasBunko ? (
+            <span className="px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-sm">
+              文庫化
             </span>
-          ))}
+          ) : (
+            ''
+          )}
         </div>
         <div className="flex justify-between items-center">
           <span className="text-lg font-bold text-green-600">
@@ -39,9 +44,16 @@ const BookCard = async ({ book }: Props) => {
               currency: 'JPY',
             }).format(book.itemPrice)}
           </span>
-          <Link href={`/books/search/bunko?searchWord=${book.title}`}>
-            文庫を探す
-          </Link>
+          {hasBunko ? (
+            <Link
+              href={`/books/search/bunko?searchWord=${book.title}`}
+              className="btn"
+            >
+              文庫を探す
+            </Link>
+          ) : (
+            <p>文庫は未発売</p>
+          )}
         </div>
       </div>
     </div>
