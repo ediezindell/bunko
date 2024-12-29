@@ -2,16 +2,16 @@ import BackButton from '@/components/BackButton';
 
 type Props = {
   params: Promise<{
-    bookId: string;
+    isbn: string;
   }>;
 };
 
 const Page = async ({ params }: Props) => {
-  const bookId = (await params).bookId;
+  const isbn = (await params).isbn;
   return (
     <>
-      <h1>books 個別</h1>
-      <p>{bookId}</p>
+      <h1>books</h1>
+      <p>{isbn}</p>
       <BackButton />
     </>
   );
