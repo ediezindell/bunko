@@ -55,14 +55,14 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   if (!res) {
     return <p>エラー</p>;
   }
-  const { Items: books, first, last, count, pageCount } = res;
+  const { Items: books, pageCount } = res;
 
   return (
     <>
-      <SearchForm />
-      <h1>
-        [{searchWord}] の文庫検索結果 ({first}-{last}件 / 全{count}件)
-      </h1>
+      <section className="p-4 grid place-items-center">
+        <SearchForm />
+      </section>
+      <h1 className="text-center">[{searchWord}] の文庫検索結果</h1>
       <section className="flex flex-col gap-4">
         <BookList books={books} />
         <Pagination>

@@ -11,7 +11,7 @@ const BookCard = async ({ book }: Props) => {
   const hasBunko = bunkoRes?.count ?? 0 > 0;
 
   return (
-    <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg bg-white w-80">
+    <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg bg-white w-80 p-4 gap-4">
       <div className="relative h-48 w-full">
         <Image
           src={book.largeImageUrl}
@@ -20,7 +20,7 @@ const BookCard = async ({ book }: Props) => {
           className="object-contain hover:object-scale-down"
         />
       </div>
-      <div className="flex flex-col p-4 gap-2 flex-grow">
+      <div className="flex flex-col gap-2 flex-grow">
         <h2 className="text-xl font-semibold flex-grow">
           <span>{book.title}</span>
         </h2>
