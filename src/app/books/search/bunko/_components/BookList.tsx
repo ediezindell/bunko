@@ -6,7 +6,7 @@ type Props = {
 };
 const BookList = ({ books }: Props) => {
   return (
-    <ul className="flex flex-wrap gap-4">
+    <ul className="flex flex-wrap gap-4 justify-center">
       {books.map((book) => (
         <li key={book.isbn}>
           <BookCard book={book} />

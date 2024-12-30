@@ -6,22 +6,24 @@ type Props = {
 };
 const BookCard = async ({ book }: Props) => {
   return (
-    <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg bg-white">
+    <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg bg-white w-80">
       <div className="relative h-48 w-full">
         <Image
           src={book.largeImageUrl}
           alt={book.title}
           fill
-          className="object-cover"
+          className="object-contain hover:object-scale-down"
         />
       </div>
-      <div className="flex flex-col flex-grow p-4">
-        <h2 className="text-xl font-semibold mb-2">{book.title}</h2>
-        <p className="text-gray-600 mb-4 flex-grow">{book.author}</p>
-        <p className="text-gray-600 mb-4 flex-grow">
+      <div className="flex flex-col p-4 gap-2 flex-grow">
+        <h2 className="text-xl font-semibold flex-grow">
+          <span>{book.title}</span>
+        </h2>
+        <p className="text-gray-600">{book.author}</p>
+        <p className="text-gray-600">
           {book.publisherName} {book.seriesName}
         </p>
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2">
           {[book.size, availabilityMap[book.availability]].map((tag) => (
             <span
               key={tag}
