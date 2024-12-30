@@ -1,3 +1,5 @@
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { availabilityMap, Book } from '@/types/RakutenBooksSearchApi';
 import Image from 'next/image';
 
@@ -41,9 +43,13 @@ const BookCard = async ({ book }: Props) => {
             }).format(book.itemPrice)}
           </span>
           <a
-            href={book.affiliateUrl || book.itemUrl}
             target="_blank"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            href={book.affiliateUrl || book.itemUrl}
+            className={cn(
+              buttonVariants({
+                variant: 'outline',
+              }),
+            )}
           >
             楽天ブックスで見る
           </a>

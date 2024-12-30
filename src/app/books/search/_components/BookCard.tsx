@@ -1,3 +1,5 @@
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Book } from '@/types/RakutenBooksSearchApi';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -47,7 +49,11 @@ const BookCard = async ({ book }: Props) => {
           {hasBunko ? (
             <Link
               href={`/books/search/bunko?searchWord=${book.title}`}
-              className="btn"
+              className={cn(
+                buttonVariants({
+                  variant: 'outline',
+                }),
+              )}
             >
               文庫を探す
             </Link>
