@@ -13,7 +13,7 @@ const BookCard = async ({ book }: Props) => {
   const hasBunko = bunkoRes?.count ?? 0 > 0;
 
   return (
-    <div className="flex flex-col h-full overflow-hidden rounded-lg shadow-lg bg-white w-80 p-4 gap-4">
+    <div className="flex h-full w-80 flex-col gap-4 overflow-hidden rounded-lg bg-white p-4 shadow-lg">
       <div className="relative h-48 w-full">
         <Image
           src={book.largeImageUrl}
@@ -22,8 +22,8 @@ const BookCard = async ({ book }: Props) => {
           className="object-contain hover:object-scale-down"
         />
       </div>
-      <div className="flex flex-col gap-2 flex-grow">
-        <h2 className="text-xl font-semibold flex-grow">
+      <div className="flex flex-grow flex-col gap-2">
+        <h2 className="flex-grow text-xl font-semibold">
           <span>{book.title}</span>
         </h2>
         <p className="text-gray-600">{book.author}</p>
@@ -32,14 +32,14 @@ const BookCard = async ({ book }: Props) => {
         </p>
         <div className="flex flex-wrap gap-2">
           {hasBunko ? (
-            <span className="px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-sm">
+            <span className="rounded-full bg-gray-200 px-2 py-1 text-sm text-gray-700">
               文庫化
             </span>
           ) : (
             ''
           )}
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <span className="text-lg font-bold text-green-600">
             {new Intl.NumberFormat('ja-JP', {
               style: 'currency',

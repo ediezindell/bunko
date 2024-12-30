@@ -59,7 +59,7 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
 
   return (
     <>
-      <section className="p-4 grid place-items-center">
+      <section className="grid place-items-center p-4">
         <SearchForm />
       </section>
       <h1 className="text-center">[{searchWord}] の検索結果</h1>

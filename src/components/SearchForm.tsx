@@ -41,7 +41,7 @@ export function SearchForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 flex gap-4"
+        className="flex gap-4 space-y-8"
       >
         <FormField
           control={form.control}
