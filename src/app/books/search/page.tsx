@@ -57,6 +57,12 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   }
   const { Items: books, pageCount } = res;
 
+  const getLink = (p: number) =>
+    `/books/search/?${getSearchParams({
+      ...searchParams,
+      page: p,
+    }).toString()}`;
+
   return (
     <>
       <section className="grid place-items-center p-4">
@@ -69,24 +75,12 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
           <PaginationContent>
             {page > 1 && (
               <PaginationItem>
-                <PaginationPrevious
-                  href={`/books/search/?${getSearchParams({
-                    ...searchParams,
-                    page: page - 1,
-                  }).toString()}`}
-                />
+                <PaginationPrevious href={getLink(page - 1)} />
               </PaginationItem>
             )}
             {page > 2 && (
               <PaginationItem>
-                <PaginationLink
-                  href={`/books/search/?${getSearchParams({
-                    ...searchParams,
-                    page: 1,
-                  }).toString()}`}
-                >
-                  1
-                </PaginationLink>
+                <PaginationLink href={getLink(1)}>1</PaginationLink>
               </PaginationItem>
             )}
             {page > 3 && (
@@ -100,13 +94,7 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
               .filter((i) => 1 <= i && i <= pageCount)
               .map((i) => (
                 <PaginationItem key={i}>
-                  <PaginationLink
-                    href={`/books/search/?${getSearchParams({
-                      ...searchParams,
-                      page: i,
-                    }).toString()}`}
-                    isActive={i === page}
-                  >
+                  <PaginationLink href={getLink(i)} isActive={i === page}>
                     {i}
                   </PaginationLink>
                 </PaginationItem>
@@ -118,24 +106,14 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
             )}
             {page + 1 < pageCount && (
               <PaginationItem>
-                <PaginationLink
-                  href={`/books/search/?${getSearchParams({
-                    ...searchParams,
-                    page: pageCount,
-                  }).toString()}`}
-                >
+                <PaginationLink href={getLink(pageCount)}>
                   {pageCount}
                 </PaginationLink>
               </PaginationItem>
             )}
             {page < pageCount && (
               <PaginationItem>
-                <PaginationNext
-                  href={`/books/search/?${getSearchParams({
-                    ...searchParams,
-                    page: page + 1,
-                  }).toString()}`}
-                />
+                <PaginationNext href={getLink(page + 1)} />
               </PaginationItem>
             )}
           </PaginationContent>
