@@ -49,30 +49,14 @@ export type Size = (typeof sizeMap)[SizeKey];
 
 /** 在庫なし */
 export const AVAIL_OUT_OF_STOCK = 0;
-/** 在庫なし */
-type OutOfStock = typeof AVAIL_OUT_OF_STOCK;
 /** 在庫あり */
 export const AVAIL_IN_STOCK = 1;
-/** 在庫あり */
-type InStock = typeof AVAIL_IN_STOCK;
 /** 限定在庫 */
 export const AVAIL_LIMITED = 2;
-/** 限定在庫 */
-type LimitedStock = typeof AVAIL_LIMITED;
 /** 予約受付中 */
 export const AVAIL_PRE_ORDER = 3;
-/** 予約受付中 */
-type PreOrder = typeof AVAIL_PRE_ORDER;
 /** 絶版 */
 export const AVAIL_OUT_OF_PRINT = 4;
-/** 絶版 */
-type OutOfPrint = typeof AVAIL_OUT_OF_PRINT;
-type AvailabilityKey =
-  | InStock
-  | OutOfStock
-  | LimitedStock
-  | PreOrder
-  | OutOfPrint;
 
 export const availabilityMap = {
   [AVAIL_OUT_OF_STOCK]: '在庫なし',
@@ -82,6 +66,7 @@ export const availabilityMap = {
   [AVAIL_OUT_OF_PRINT]: '絶版',
 } as const;
 
+export type AvailabilityKey = keyof typeof availabilityMap;
 export type Availability = (typeof availabilityMap)[AvailabilityKey];
 
 /** 在庫なしの商品表示フラグ */
