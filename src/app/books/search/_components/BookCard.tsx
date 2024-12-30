@@ -22,8 +22,8 @@ const BookCard = async ({ book }: Props) => {
           className="object-contain hover:object-scale-down"
         />
       </div>
-      <div className="flex flex-grow flex-col gap-2">
-        <h2 className="flex-grow text-xl font-semibold">
+      <div className="flex grow flex-col gap-2">
+        <h2 className="grow text-xl font-semibold">
           <span>{book.title}</span>
         </h2>
         <p className="text-gray-600">{book.author}</p>
