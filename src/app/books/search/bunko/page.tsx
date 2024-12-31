@@ -58,7 +58,7 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   const { Items: books, pageCount } = res;
 
   const getLink = (p: number) =>
-    `/books/search/?${getSearchParams({
+    `/books/search/bunko/?${getSearchParams({
       ...searchParams,
       page: p,
     }).toString()}`;
