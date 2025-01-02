@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <>
       <Suspense>
-        <SearchForm />
+        <section className="grid place-items-center p-4">
+          <SearchForm />
+        </section>
       </Suspense>
     </>
   );
