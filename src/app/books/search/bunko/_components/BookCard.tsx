@@ -4,7 +4,19 @@ import { availabilityMap, Book } from '@/types/RakutenBooksSearchApi';
 import Image from 'next/image';
 
 type Props = {
-  book: Book;
+  book: Pick<
+    Book,
+    | 'largeImageUrl'
+    | 'author'
+    | 'title'
+    | 'itemPrice'
+    | 'size'
+    | 'availability'
+    | 'itemUrl'
+    | 'publisherName'
+    | 'seriesName'
+    | 'affiliateUrl'
+  >;
 };
 const BookCard = async ({ book }: Props) => {
   return (
