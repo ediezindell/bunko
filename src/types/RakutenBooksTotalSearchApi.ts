@@ -1,5 +1,5 @@
 /**
- * @refs https://webservice.rakuten.co.jp/documentation/books-book-search
+ * @refs https://webservice.rakuten.co.jp/documentation/books-total-search
  */
 type Format = 'json' | 'xml';
 type FormatVersion = 1 | 2;
@@ -86,7 +86,9 @@ type Sort =
   | 'reviewCount' // レビュー件数順
   | 'reviewAverage'; // レビュー平均順
 type LimitedFlag = 0 | 1;
+type FieldFlag = 0 | 1;
 type Carrier = 0 | 1;
+type OrFlag = 0 | 1;
 type GenreInformationFlag = 0 | 1;
 
 /**
@@ -102,12 +104,9 @@ export interface RakutenBooksSearchApiParams {
   formatVersion?: FormatVersion;
 
   // サービス固有パラメーター
-  title?: string; // (*1)
-  author?: string; // (*1)
-  publisherName?: string; // (*1)
-  size?: SizeKey; // (*1)
-  isbn?: string; // (*1)
+  keyword?: string; // (*1)
   booksGenreId?: string; // (*1)
+  isbnjan?: string; // (*1) (*2)
   hits?: number; // デフォルト: 30 (1〜30)
   page?: number; // デフォルト: 1 (1〜100)
   availability?: AvailabilityKey; // デフォルト: 0
@@ -115,7 +114,10 @@ export interface RakutenBooksSearchApiParams {
   chirayomiFlag?: ChirayomiFlag; // デフォルト: 0
   sort?: Sort; // デフォルト: 'standard'
   limitedFlag?: LimitedFlag; // デフォルト: 0
+  field?: FieldFlag; // デフォルト: 0
   carrier?: Carrier; // デフォルト: 0
+  orFlag?: OrFlag; // デフォルト: 0
+  NGKeyword?: string;
   genreInformationFlag?: GenreInformationFlag; // デフォルト: 0
 }
 
@@ -130,27 +132,23 @@ export interface RakutenBooksSearchApiResponse {
   hits: number;
   carrier: Carrier;
   pageCount: number;
-  Items: Book[];
+  Items: Item[];
   genreInformation?: Genre[];
 }
 
 /**
- * 本
+ * 商品
  */
-export interface Book {
+export interface Item {
   title: string;
-  titleKana?: string;
-  subTitle?: string;
-  subTitleKana?: string;
-  seriesName?: string;
-  seriesNameKana?: string;
-  contents?: string;
-  contentsKana?: string;
   author: string;
-  authorKana?: string;
+  artistName: string;
   publisherName: string;
-  size: Size;
+  label: string;
   isbn: string;
+  jan: string;
+  hardware: string;
+  os: string;
   itemCaption?: string;
   salesDate?: string;
   itemPrice: number;
