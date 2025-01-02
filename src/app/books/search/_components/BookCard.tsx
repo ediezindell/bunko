@@ -1,14 +1,32 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Item } from '@/types/RakutenBooksTotalSearchApi';
+import { GENRE_BUNKO, Item } from '@/types/RakutenBooksTotalSearchApi';
 import Image from 'next/image';
 import Link from 'next/link';
 import { searchBunko } from '../_lib/searchBooks';
+import BunkoCard from '../bunko/_components/BookCard';
 
 type Props = {
   book: Item;
 };
 const BookCard = async ({ book }: Props) => {
+  const isBunko = book.booksGenreId
+    .split('/')
+    .some((genreId) => genreId.startsWith(GENRE_BUNKO));
+
+  if (isBunko) {
+    return (
+      <BunkoCard
+        book={{
+          ...book,
+          publisherName: '',
+          seriesName: '',
+          size: '文庫',
+        }}
+      />
+    );
+  }
+
   const bunkoRes = await searchBunko(book.title, 1, 30);
   const hasBunko = bunkoRes?.count ?? 0 > 0;
 
