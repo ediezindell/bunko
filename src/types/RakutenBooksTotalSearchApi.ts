@@ -50,23 +50,26 @@ export const sizeMap = {
 export type SizeKey = keyof typeof sizeMap;
 export type Size = (typeof sizeMap)[SizeKey];
 
-/** 在庫なし */
-export const AVAIL_OUT_OF_STOCK = 0;
 /** 在庫あり */
-export const AVAIL_IN_STOCK = 1;
-/** 限定在庫 */
-export const AVAIL_LIMITED = 2;
+export const AVAIL_ZAIKO_ARI = 1;
+/** 通常3～7日程度で発送 */
+export const AVAIL_ZAIKO_ARI_2 = 2;
+/** 通常3～9日程度で発送 */
+export const AVAIL_ZAIKO_ARI_3 = 3;
+/** メーカー取り寄せ */
+export const AVAIL_MAKER_TORIYOSE = 4;
 /** 予約受付中 */
-export const AVAIL_PRE_ORDER = 3;
-/** 絶版 */
-export const AVAIL_OUT_OF_PRINT = 4;
+export const AVAIL_YOYAKU = 5;
+/** メーカーに在庫確認 */
+export const AVAIL_ZAIKO_KAKUNIN = 6;
 
 export const availabilityMap = {
-  [AVAIL_OUT_OF_STOCK]: '在庫なし',
-  [AVAIL_IN_STOCK]: '在庫あり',
-  [AVAIL_LIMITED]: '限定在庫',
-  [AVAIL_PRE_ORDER]: '予約受付中',
-  [AVAIL_OUT_OF_PRINT]: '絶版',
+  [AVAIL_ZAIKO_ARI]: '在庫あり',
+  [AVAIL_ZAIKO_ARI_2]: '通常3～7日程度で発送',
+  [AVAIL_ZAIKO_ARI_3]: '通常3～9日程度で発送',
+  [AVAIL_MAKER_TORIYOSE]: 'メーカー取り寄せ',
+  [AVAIL_YOYAKU]: '予約受付中',
+  [AVAIL_ZAIKO_KAKUNIN]: 'メーカーに在庫確認',
 } as const;
 
 export type AvailabilityKey = keyof typeof availabilityMap;
