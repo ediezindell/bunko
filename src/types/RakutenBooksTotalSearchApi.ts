@@ -94,7 +94,7 @@ type GenreInformationFlag = 0 | 1;
 /**
  * 入力パラメーター
  */
-export interface RakutenBooksSearchApiParams {
+export interface RakutenBooksTotalSearchApiParams {
   // 共通パラメーター
   applicationId: string; // 必須
   affiliateId?: string;
@@ -124,7 +124,7 @@ export interface RakutenBooksSearchApiParams {
 /**
  * 出力パラメーター
  */
-export interface RakutenBooksSearchApiResponse {
+export interface RakutenBooksTotalSearchApiResponse {
   count: number;
   page: number;
   first: number;

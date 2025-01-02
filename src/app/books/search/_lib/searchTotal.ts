@@ -1,17 +1,15 @@
 import {
-  GENRE_BOOK,
-  RakutenBooksSearchApiParams,
-  RakutenBooksSearchApiResponse,
-  SIZE_BUNKO,
-  SizeKey,
-} from '@/types/RakutenBooksSearchApi';
+  GENRE_SHOSETSU,
+  RakutenBooksTotalSearchApiParams,
+  RakutenBooksTotalSearchApiResponse,
+} from '@/types/RakutenBooksTotalSearchApi';
+
 import { getSearchParams } from './getSearchParams';
 
 export async function searchBooks(
-  title: string,
+  keyword: string,
   page: number,
   hits: number,
-  size: SizeKey,
   booksGenreId: string,
 ) {
   const params = {
@@ -20,29 +18,32 @@ export async function searchBooks(
     formatVersion: 2,
     sort: '-releaseDate',
     booksGenreId,
-    title,
+    keyword,
     page,
     hits,
-    size,
-  } satisfies RakutenBooksSearchApiParams;
+  } satisfies RakutenBooksTotalSearchApiParams;
   const searchParams = getSearchParams(params);
   const baseUrl =
-    'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404';
+    'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404';
   const url = `${baseUrl}?${searchParams.toString()}`;
   try {
     const res = await fetch(url);
     if (!res.ok) {
       throw new Error('fetch failed');
     }
-    return (await res.json()) as RakutenBooksSearchApiResponse;
+    return (await res.json()) as RakutenBooksTotalSearchApiResponse;
   } catch (e: unknown) {
     if (e instanceof Error) {
-      console.error(e.message, title, page, hits, size, booksGenreId);
+      console.error(e.message, keyword, page, hits, booksGenreId);
     } else {
       console.error(e);
     }
   }
 }
-export async function searchBunko(title: string, page: number, hits: number) {
-  return searchBooks(title, page, hits, SIZE_BUNKO, GENRE_BOOK);
+export async function searchTankobon(
+  title: string,
+  page: number,
+  hits: number,
+) {
+  return searchBooks(title, page, hits, GENRE_SHOSETSU);
 }

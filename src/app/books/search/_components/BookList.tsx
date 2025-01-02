@@ -1,8 +1,8 @@
-import { Book } from '@/types/RakutenBooksSearchApi';
+import { Item } from '@/types/RakutenBooksTotalSearchApi';
 import BookCard from './BookCard';
 
 type Props = {
-  books: Book[];
+  books: Item[];
 };
 const BookList = ({ books }: Props) => {
   return (

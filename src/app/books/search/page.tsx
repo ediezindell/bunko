@@ -8,15 +8,16 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { GENRE_BUNKO } from '@/types/RakutenBooksTotalSearchApi';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BookList from './_components/BookList';
 import { getSearchParams } from './_lib/getSearchParams';
-import { searchTankobon } from './_lib/searchBooks';
+import { searchTankobon } from './_lib/searchTotal';
 
 type Props = {
   searchParams: Promise<{
-    searchWord?: string;
+    q?: string;
     page?: string;
     hits?: string;
   }>;
@@ -26,32 +27,32 @@ export async function generateMetadata({
   searchParams: searchParamsPromise,
 }: Props): Promise<Metadata> {
   const searchParams = await searchParamsPromise;
-  const searchWord = searchParams.searchWord;
-  if (!searchWord) {
+  const q = searchParams.q;
+  if (!q) {
     return {};
   }
   const page = +(searchParams.page ?? 1);
   const hits = +(searchParams.hits ?? 10);
-  const res = await searchTankobon(searchWord, page, hits);
+  const res = await searchTankobon(q, page, hits);
   if (!res) {
     return {};
   }
   const { first, last, count } = res;
   return {
-    title: `[${searchWord}] の検索結果 (${first}-${last}件 / 全${count}件)`,
+    title: `[${q}] の検索結果 (${first}-${last}件 / 全${count}件)`,
   };
 }
 
 const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   const searchParams = await searchParamsPromise;
-  const searchWord = searchParams.searchWord;
-  if (!searchWord) {
+  const q = searchParams.q;
+  if (!q) {
     notFound();
   }
   const page = +(searchParams.page ?? 1);
   const hits = +(searchParams.hits ?? 30);
 
-  const res = await searchTankobon(searchWord, page, hits);
+  const res = await searchTankobon(q, page, hits);
   if (!res) {
     return <p>エラー</p>;
   }
@@ -68,10 +69,16 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
       <section className="grid place-items-center p-4">
         <SearchForm />
       </section>
-      <h1 className="text-center">[{searchWord}] の検索結果</h1>
+      <h1 className="text-center">[{q}] の検索結果</h1>
       <section className="flex flex-col gap-4">
-        <BookList books={books} />
-        <Pagination>
+        <BookList
+          books={books.filter(({ booksGenreId }) =>
+            booksGenreId
+              .split('/')
+              .every((genreId) => !genreId.startsWith(GENRE_BUNKO)),
+          )}
+        />
+        <Pagination className="">
           <PaginationContent>
             {page > 1 && (
               <PaginationItem>

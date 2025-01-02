@@ -45,11 +45,7 @@ const BookCard = async ({ book }: Props) => {
           <a
             target="_blank"
             href={book.affiliateUrl || book.itemUrl}
-            className={cn(
-              buttonVariants({
-                variant: 'outline',
-              }),
-            )}
+            className={cn(buttonVariants())}
           >
             楽天ブックスで見る
           </a>

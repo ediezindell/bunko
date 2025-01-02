@@ -18,7 +18,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { getSearchParams } from '../app/books/search/_lib/getSearchParams';
 
 const formSchema = z.object({
-  searchWord: z.string().min(2, {
+  q: z.string().min(2, {
     message: '検索キーワードは2文字以上入力してください',
   }),
 });
@@ -29,7 +29,7 @@ export function SearchForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      searchWord: searchParams.get('searchWord') ?? '',
+      q: searchParams.get('q') ?? '',
     },
   });
 
@@ -45,12 +45,12 @@ export function SearchForm() {
       >
         <FormField
           control={form.control}
-          name="searchWord"
+          name="q"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>タイトル検索</FormLabel>
+              <FormLabel>キーワード検索</FormLabel>
               <FormControl>
-                <Input placeholder="タイトルで検索" {...field} />
+                <Input placeholder="タイトルや著者名で検索" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

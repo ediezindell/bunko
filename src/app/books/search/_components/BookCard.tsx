@@ -1,12 +1,12 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Book } from '@/types/RakutenBooksSearchApi';
+import { Item } from '@/types/RakutenBooksTotalSearchApi';
 import Image from 'next/image';
 import Link from 'next/link';
 import { searchBunko } from '../_lib/searchBooks';
 
 type Props = {
-  book: Book;
+  book: Item;
 };
 const BookCard = async ({ book }: Props) => {
   const bunkoRes = await searchBunko(book.title, 1, 30);
@@ -26,10 +26,10 @@ const BookCard = async ({ book }: Props) => {
         <h2 className="grow text-xl font-semibold">
           <span>{book.title}</span>
         </h2>
-        <p className="text-gray-600">{book.author}</p>
         <p className="text-gray-600">
-          {book.publisherName} {book.seriesName}
+          <Link href={`/books/search?q=${book.author}`}>{book.author}</Link>
         </p>
+        <p className="text-gray-600">{book.publisherName}</p>
         <div className="flex flex-wrap gap-2">
           {hasBunko ? (
             <span className="rounded-full bg-gray-200 px-2 py-1 text-sm text-gray-700">
@@ -49,11 +49,7 @@ const BookCard = async ({ book }: Props) => {
           {hasBunko ? (
             <Link
               href={`/books/search/bunko?searchWord=${book.title}`}
-              className={cn(
-                buttonVariants({
-                  variant: 'outline',
-                }),
-              )}
+              className={cn(buttonVariants())}
             >
               文庫を探す
             </Link>
