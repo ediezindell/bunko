@@ -20,15 +20,8 @@ export async function generateMetadata({
   if (!q) {
     return {};
   }
-  const page = +(searchParams.page ?? 1);
-  const hits = +(searchParams.hits ?? 10);
-  const res = await searchTankobon(q, page, hits);
-  if (!res) {
-    return {};
-  }
-  const { first, last, count } = res;
   return {
-    title: `[${q}] の検索結果 (${first}-${last}件 / 全${count}件)`,
+    title: `[${q}] の検索結果`,
   };
 }
 
