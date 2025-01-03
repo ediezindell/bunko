@@ -30,15 +30,8 @@ export async function generateMetadata({
   if (!searchWord) {
     return {};
   }
-  const page = +(searchParams.page ?? 1);
-  const hits = +(searchParams.hits ?? 10);
-  const res = await searchBunko(searchWord, page, hits);
-  if (!res) {
-    return {};
-  }
-  const { first, last, count } = res;
   return {
-    title: `[${searchWord}] の文庫検索結果 (${first}-${last}件 / 全${count}件)`,
+    title: `[${searchWord}] の文庫検索結果`,
   };
 }
 
