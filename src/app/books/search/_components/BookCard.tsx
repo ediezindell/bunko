@@ -66,7 +66,7 @@ const BookCard = async ({ book }: Props) => {
           </span>
           {hasBunko ? (
             <Link
-              href={`/books/search/bunko?searchWord=${book.title}`}
+              href={`/books/search/bunko?title=${book.title}`}
               className={cn(buttonVariants())}
             >
               文庫を探す

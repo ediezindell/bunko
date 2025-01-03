@@ -16,7 +16,7 @@ import BookList from './_components/BookList';
 
 type Props = {
   searchParams: Promise<{
-    searchWord?: string;
+    title?: string;
     page?: string;
     hits?: string;
   }>;
@@ -26,25 +26,25 @@ export async function generateMetadata({
   searchParams: searchParamsPromise,
 }: Props): Promise<Metadata> {
   const searchParams = await searchParamsPromise;
-  const searchWord = searchParams.searchWord;
-  if (!searchWord) {
+  const title = searchParams.title;
+  if (!title) {
     return {};
   }
   return {
-    title: `[${searchWord}] の文庫検索結果`,
+    title: `[${title}] の文庫検索結果`,
   };
 }
 
 const Page = async ({ searchParams: searchParamsPromise }: Props) => {
   const searchParams = await searchParamsPromise;
-  const searchWord = searchParams.searchWord;
-  if (!searchWord) {
+  const title = searchParams.title;
+  if (!title) {
     notFound();
   }
   const page = +(searchParams.page ?? 1);
   const hits = +(searchParams.hits ?? 30);
 
-  const res = await searchBunko(searchWord, page, hits);
+  const res = await searchBunko(title, page, hits);
   if (!res) {
     return <p>エラー</p>;
   }
@@ -61,7 +61,7 @@ const Page = async ({ searchParams: searchParamsPromise }: Props) => {
       <section className="grid place-items-center p-4">
         <SearchForm />
       </section>
-      <h1 className="text-center">[{searchWord}] の文庫検索結果</h1>
+      <h1 className="text-center">[{title}] の文庫検索結果</h1>
       <section className="flex flex-col gap-4">
         <BookList books={books} />
         <Pagination>
