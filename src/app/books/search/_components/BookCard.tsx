@@ -1,20 +1,18 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { GENRE_BUNKO, Item } from '@/types/RakutenBooksTotalSearchApi';
+import { Item } from '@/types/RakutenBooksTotalSearchApi';
 import Image from 'next/image';
 import Link from 'next/link';
+import { isBunko } from '../_lib/isBunko';
 import { searchBunko } from '../_lib/searchBooks';
 import BunkoCard from '../bunko/_components/BookCard';
 
 type Props = {
   book: Item;
 };
-const BookCard = async ({ book }: Props) => {
-  const isBunko = book.booksGenreId
-    .split('/')
-    .some((genreId) => genreId.startsWith(GENRE_BUNKO));
 
-  if (isBunko) {
+const BookCard = async ({ book }: Props) => {
+  if (isBunko(book)) {
     return (
       <BunkoCard
         book={{
