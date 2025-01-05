@@ -25,8 +25,6 @@ const BookCard = async ({ book }: Props) => {
       <BunkoCard
         book={{
           ...book,
-          publisherName: '',
-          seriesName: '',
           size: '文庫',
         }}
       />
