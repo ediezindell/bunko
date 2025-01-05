@@ -1,11 +1,19 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Item } from '@/types/RakutenBooksTotalSearchApi';
-import Image from 'next/image';
 import Link from 'next/link';
 import { isBunko } from '../_lib/isBunko';
 import { searchBunko } from '../_lib/searchBooks';
 import BunkoCard from '../bunko/_components/BookCard';
+import {
+  CardBody,
+  CardHeading,
+  CardImage,
+  CardLayout,
+  CardParagraph,
+  CardPrice,
+  CardTags,
+} from './BookLayout';
 
 type Props = {
   book: Item;
@@ -29,39 +37,17 @@ const BookCard = async ({ book }: Props) => {
   const hasBunko = bunkoRes?.count ?? 0 > 0;
 
   return (
-    <div className="flex h-full w-80 flex-col gap-4 overflow-hidden rounded-lg bg-white p-4 shadow-lg">
-      <div className="relative h-48 w-full">
-        <Image
-          src={book.largeImageUrl}
-          alt={book.title}
-          fill
-          className="object-contain transition-all hover:scale-95"
-        />
-      </div>
-      <div className="flex grow flex-col gap-2">
-        <h2 className="grow text-xl font-semibold">
-          <span>{book.title}</span>
-        </h2>
-        <p className="text-gray-600">
+    <CardLayout>
+      <CardImage {...book} />
+      <CardBody>
+        <CardHeading {...book} />
+        <CardParagraph>
           <Link href={`/books/search?q=${book.author}`}>{book.author}</Link>
-        </p>
-        <p className="text-gray-600">{book.publisherName}</p>
-        <div className="flex flex-wrap gap-2">
-          {hasBunko ? (
-            <span className="rounded-full bg-gray-200 px-2 py-1 text-sm text-gray-700">
-              文庫化
-            </span>
-          ) : (
-            ''
-          )}
-        </div>
+        </CardParagraph>
+        <CardParagraph>{book.publisherName}</CardParagraph>
+        <CardTags tags={hasBunko ? ['文庫化'] : []} />
         <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-green-600">
-            {new Intl.NumberFormat('ja-JP', {
-              style: 'currency',
-              currency: 'JPY',
-            }).format(book.itemPrice)}
-          </span>
+          <CardPrice {...book} />
           {hasBunko ? (
             <Link
               href={`/books/search/bunko?title=${book.title}`}
@@ -73,8 +59,8 @@ const BookCard = async ({ book }: Props) => {
             <p>文庫は未発売</p>
           )}
         </div>
-      </div>
-    </div>
+      </CardBody>
+    </CardLayout>
   );
 };
 
