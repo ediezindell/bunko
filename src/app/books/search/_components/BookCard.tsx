@@ -14,6 +14,7 @@ import {
   CardPrice,
   CardTags,
 } from './BookLayout';
+import RegisterForm from './RegisterForm';
 
 type Props = {
   book: Item;
@@ -54,7 +55,7 @@ const BookCard = async ({ book }: Props) => {
               文庫を探す
             </Link>
           ) : (
-            <p>文庫は未発売</p>
+            <RegisterForm {...book} />
           )}
         </div>
       </CardBody>
