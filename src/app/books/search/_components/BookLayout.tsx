@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { PropsWithChildren } from 'react';
 
 export const CardLayout = ({ children }: PropsWithChildren) => (
-  <div className="flex h-full w-80 flex-col gap-4 overflow-hidden rounded-lg bg-white p-4 shadow-lg transition-all hover:scale-105">
+  <div className="flex h-full w-80 flex-col gap-4 overflow-hidden rounded-lg bg-white p-4 shadow-lg">
     {children}
   </div>
 );
