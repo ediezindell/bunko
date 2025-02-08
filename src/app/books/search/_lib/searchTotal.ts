@@ -40,10 +40,11 @@ export async function searchBooks(
     }
   }
 }
+
 export async function searchTankobon(
   title: string,
   page: number,
   hits: number,
 ) {
-  return searchBooks(title, page, hits, GENRE_SHOSETSU);
+  return await searchBooks(title, page, hits, GENRE_SHOSETSU);
 }
