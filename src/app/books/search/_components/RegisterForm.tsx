@@ -24,6 +24,7 @@ import { Book } from '@/types/RakutenBooksSearchApi';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { registerNotification } from '../_lib/registerNotification';
 
 const formSchema = z.object({
   email: z.string().min(1, {
@@ -31,15 +32,21 @@ const formSchema = z.object({
   }),
 });
 
-const RegisterForm = ({ title }: Pick<Book, 'isbn' | 'title'>) => {
+const RegisterForm = ({ isbn, title }: Pick<Book, 'isbn' | 'title'>) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
     },
   });
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await registerNotification(values.email, isbn, title);
+      alert('登録が完了しました');
+    } catch (e) {
+      alert('何かしらのエラーが発生しました');
+      console.error(e);
+    }
   };
   return (
     <Dialog>
