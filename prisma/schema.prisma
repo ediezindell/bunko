@@ -13,24 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Books {
-  isbn String @unique
-  title String
-  author String
-  publisherName String
-  isBunko Boolean
-}
-
-model Mappings {
-  originalIsbn String @unique
-  bunkoIsbn String
-}
-
 model Notifications {
   userId String
   isbn String
   title String
-  onPreOrder Boolean
-  onSale Boolean
   @@unique([userId, isbn])
 }
