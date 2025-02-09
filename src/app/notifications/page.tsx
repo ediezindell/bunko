@@ -1,14 +1,15 @@
 import { findAllNotifications } from './_model';
 
 export default async function Notifications() {
-  const notifications = await findAllNotifications();
+  const userId = 'test@example.com';
+  const notifications = await findAllNotifications(userId);
 
   return (
     <ul>
-      {notifications.map(({ isbn, onPreOrder, onSale }) => (
+      {notifications.map(({ isbn, title }) => (
         <li key={isbn}>
-          {isbn} ( 予約開始時: {onPreOrder ? 'o' : 'x'}, 発売開始時:{' '}
-          {onSale ? 'o' : 'x'} )
+          {isbn}
+          {title}
         </li>
       ))}
     </ul>

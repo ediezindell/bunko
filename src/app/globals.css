@@ -26,7 +26,7 @@ footer {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: bottom;
 }
 
@@ -97,4 +97,49 @@ main {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+:root {
+  --background: 173 16% 95%;
+  --foreground: 173 5% 10%;
+  --card: 173 16% 90%;
+  --card-foreground: 173 5% 15%;
+  --popover: 173 16% 95%;
+  --popover-foreground: 173 95% 10%;
+  --primary: 173 64% 49%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 173 16% 70%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 135 16% 85%;
+  --muted-foreground: 173 5% 40%;
+  --accent: 135 16% 80%;
+  --accent-foreground: 173 5% 15%;
+  --destructive: 0 50% 50%;
+  --destructive-foreground: 173 5% 90%;
+  --border: 173 20% 68%;
+  --input: 173 20% 50%;
+  --ring: 173 64% 49%;
+  --radius: 0.3rem;
+}
+.dark {
+  --background: 173 16% 10%;
+  --foreground: 173 5% 90%;
+  --card: 173 16% 10%;
+  --card-foreground: 173 5% 90%;
+  --popover: 173 16% 5%;
+  --popover-foreground: 173 5% 90%;
+  --primary: 173 64% 49%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 173 16% 20%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 135 16% 25%;
+  --muted-foreground: 173 5% 65%;
+  --accent: 135 16% 25%;
+  --accent-foreground: 173 5% 90%;
+  --destructive: 0 50% 50%;
+  --destructive-foreground: 173 5% 90%;
+  --border: 173 20% 50%;
+  --input: 173 20% 50%;
+  --ring: 173 64% 49%;
+  --radius: 0.3rem;
 }
