@@ -35,6 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head>
+        <title>文庫サーチ</title>
+      </head>
       <body className="dark">
         <Header />
         <main>{children}</main>
