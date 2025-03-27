@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Book } from '@/types/RakutenBooksSearchApi';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { registerNotification } from '../_lib/registerNotification';
@@ -32,7 +33,11 @@ const formSchema = z.object({
   }),
 });
 
-const RegisterForm = ({ isbn, title }: Pick<Book, 'isbn' | 'title'>) => {
+type Props = Pick<Book, 'isbn' | 'title'>;
+
+const RegisterForm = ({ isbn, title }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,15 +48,24 @@ const RegisterForm = ({ isbn, title }: Pick<Book, 'isbn' | 'title'>) => {
     try {
       await registerNotification(values.email, isbn, title);
       alert('登録が完了しました');
+      setIsOpen(false);
+      setIsRegistered(true);
     } catch (e) {
       alert('何かしらのエラーが発生しました');
       console.error(e);
     }
   };
+
   return (
-    <Dialog>
+    <Dialog open={isOpen}>
       <DialogTrigger asChild>
-        <Button variant="default">文庫化お知らせ登録</Button>
+        <Button
+          variant="default"
+          onClick={() => setIsOpen(true)}
+          disabled={isRegistered}
+        >
+          {isRegistered ? 'お知らせ登録済み' : '文庫化お知らせ登録'}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
